@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Components</title>
+        
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <my-title></my-title>
+            <my-title></my-title>
+            <my-rectangle rwidth = "10" rheight = "20" v-on:change = "alertChange"></my-rectangle>
+            
+        </div>
+    </body>
+</html>
+
+<script>
+Vue.component("my-title", {
+    template: "<div><h1>Hello {{name}}</h1><button @click = 'changeName'>Change Name</button><hr/></div>",
+    data: function() {
+        return {
+            name: "David"
+        };
+    },
+    methods: {
+        changeName: function() {
+            this.name =  "Yossi" + Math.random();
+        }
+    }
+});
+    
+Vue.component("my-rectangle", {
+    props: ['rwidth', 'rheight', 'rstyle'],
+    template: '<div>Rectangle width: {{rwidth}}, height: {{rheight}} area: {{area}}' +
+        '<br/><button @click = "changeDimensions">Change</button></div>',
+    computed: {
+        area: function() {
+            return this.rwidth * this.rheight;
+        }
+    },
+    methods: {
+        changeDimensions: function() {
+            this.rwidth++;
+            this.rheight--;
+            this.$emit('change');
+        }
+    }
+    
+});
+    
+var app = new Vue({
+    el: '#app',
+    methods: {
+        alertChange: function() {
+            alert("dimensions had been changed");
+        }
+    }
+    
+    
+    
+});
+
+</script>

@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Hello Vue</title>
+        
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <h1>{{title}}</h1>
+            <h2 v-text = 'title'></h2>
+            <p>{{"Mr. " + firstName + " " + lastName}}</p>
+            <p>Address:
+                <br/>
+                <div v-html = "address"></div>
+            </p>
+        <img :src = "pic" width = "200" height = "200">
+        <p>
+            current daye: {{ currentDate() }}
+        </p>
+        
+        <p>{{updaing}}</p>
+        <p>{{fullName}}</p>
+        <ul>
+            <li v-for = "p in phones" v-if = "p.show == 'true'">{{p.number}}</li>   
+        </ul>
+        </div>
+    </body>
+</html>
+
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        title: 'Vue First Application',
+        firstName: 'Yossi',
+        lastName: 'Levi',
+        address: 'Herzl st 19/5 <br/> Jerusalem',
+        pic: 'http://www.wikihow.com/images/6/6a/Draw-a-Cartoon-Man-Intro.jpg',
+        updaing: '',
+        phones: [
+            {number: '054-32325433', show: 'true'},
+            {number: '054-11111122', show: 'false'},
+            {number: '054-35678567', show: 'true'}
+            ]
+    },
+    methods: {
+        currentDate : function() {
+            return new Date(Date.now()).toDateString();
+        }
+    },
+    beforeCreate: function() {
+        console.log("before create");
+    },
+    beforeUpdate: function() {
+        this.updaing = "Updating...";
+    },
+    computed: {
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    
+});
+
+</script>

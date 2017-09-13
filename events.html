@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Events</title>
+        
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <div id = "app" @mousemove = "updateCoordinates" @click = "guessClick(Math.random() * 100, $event)">
+            <p>{{count}}</p>
+            <button v-on:click = "increase" id = "btn">Click Me</button>
+            <p>({{x}}, {{y}})</p>
+            <button @click = "saySomething('Hi')">Say Something!</button>
+            <input @keyup.space.enter = "validate">
+        </div>
+    </body>
+</html>
+
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        count: 0,
+        x: 0,
+        y: 0
+    },
+    methods: {
+        increase : function() {
+            this.count++;
+            this.$btn.innerHTML = "ggg";
+        },
+        updateCoordinates: function(event) {
+            this.x = event.clientX;
+            this.y = event.clientY;
+        },
+        saySomething: function(msg) {
+            alert(msg);
+        },
+        guessClick: function(num, event) {
+            if(num > event.clientX)
+                alert("Yeah!");
+        },
+        validate: function(event) {
+           // if(event.target.value == "")
+                alert("Empty");
+        }
+    }
+    
+    
+});
+
+</script>
